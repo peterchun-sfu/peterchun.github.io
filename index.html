@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Peter Chun — R&D Leader in Semiconductors & AI Hardware</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0e14;
+      --surface: #111620;
+      --border: #1e2633;
+      --accent: #4fc3f7;
+      --accent2: #e8b86d;
+      --text: #c9d1db;
+      --text-muted: #5a6272;
+      --text-bright: #edf2f7;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --mono: 'DM Mono', monospace;
+      --sans: 'Inter', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── GRID NOISE TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(ellipse 80% 50% at 20% 20%, rgba(79,195,247,0.04) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(232,184,109,0.03) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(10,14,20,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 100px 2rem 60px;
+      z-index: 1;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .hero-eyebrow::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.3;
+      max-width: 60px;
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      color: var(--text-bright);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--accent2);
+    }
+
+    .hero-synopsis {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+      max-width: 480px;
+    }
+
+    .hero-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .hero-contact a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .hero-contact a:hover { text-decoration: underline; }
+
+    /* Right panel — stats */
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+    }
+
+    .stat-box {
+      background: var(--surface);
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-box::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .stat-box:hover::after { opacity: 1; }
+
+    .stat-num {
+      font-family: var(--serif);
+      font-size: 2.4rem;
+      color: var(--text-bright);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-num span {
+      color: var(--accent2);
+    }
+
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 80px 2rem;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .section-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+    }
+
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      color: var(--text-bright);
+      font-weight: 400;
+    }
+
+    .section-rule {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── EXPERIENCE ── */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+
+    .timeline-item:first-child { padding-top: 0; }
+    .timeline-item:last-child { border-bottom: none; }
+
+    .timeline-date {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      padding-top: 0.2rem;
+      line-height: 1.5;
+    }
+
+    .timeline-company {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 0.3rem;
+    }
+
+    .timeline-title {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      color: var(--text-bright);
+      margin-bottom: 0.6rem;
+      font-weight: 400;
+    }
+
+    .timeline-body {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    .timeline-bullets {
+      margin-top: 0.8rem;
+      padding-left: 1.2rem;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .timeline-bullets li {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      position: relative;
+    }
+
+    .timeline-bullets li::before {
+      content: '→';
+      position: absolute;
+      left: -1.2rem;
+      color: var(--accent);
+      font-size: 11px;
+    }
+
+    /* ── RESEARCH / TEACHING ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .card {
+      background: var(--surface);
+      padding: 1.8rem;
+      transition: background 0.2s;
+      position: relative;
+    }
+
+    .card:hover { background: #161c26; }
+
+    .card-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 0.6rem;
+    }
+
+    .card-title {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      color: var(--text-bright);
+      margin-bottom: 0.5rem;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    .card-body {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── PUBLICATIONS ── */
+    .pub-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .pub-item {
+      padding: 1.4rem 0;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 1.2rem;
+      align-items: start;
+    }
+
+    .pub-item:last-child { border-bottom: none; }
+
+    .pub-year {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      padding-top: 0.3rem;
+    }
+
+    .pub-text {
+      font-size: 13.5px;
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    .pub-journal {
+      font-style: italic;
+      color: var(--text-muted);
+    }
+
+    .pub-author-highlight {
+      font-weight: 600;
+      color: var(--text-bright);
+    }
+
+    /* ── PATENTS ── */
+    .patent-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .patent-item {
+      background: var(--surface);
+      padding: 1.5rem;
+    }
+
+    .patent-num {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .patent-title {
+      font-size: 13.5px;
+      color: var(--text-bright);
+      line-height: 1.5;
+    }
+
+    .patent-year {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+    }
+
+    /* ── ROLES / MEMBERSHIPS ── */
+    .role-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .role-item {
+      border: 1px solid var(--border);
+      padding: 1rem 1.2rem;
+      background: var(--surface);
+      border-radius: 2px;
+      font-size: 13.5px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .role-item::before {
+      content: '◆';
+      color: var(--accent);
+      font-size: 9px;
+      margin-right: 0.6rem;
+    }
+
+    /* ── AWARDS ── */
+    .awards-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.9;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      z-index: 1;
+      position: relative;
+    }
+
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-eyebrow { animation: fadeUp 0.6s ease both; animation-delay: 0.1s; }
+    h1 { animation: fadeUp 0.6s ease both; animation-delay: 0.2s; }
+    .hero-synopsis { animation: fadeUp 0.6s ease both; animation-delay: 0.3s; }
+    .hero-contact { animation: fadeUp 0.6s ease both; animation-delay: 0.4s; }
+    .hero-stats { animation: fadeUp 0.6s ease both; animation-delay: 0.5s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .timeline-item { grid-template-columns: 1fr; gap: 0.3rem; }
+      .nav-links { display: none; }
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">Peter Chun</div>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#patents">Patents</a></li>
+    <li><a href="#education">Education</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">R&amp;D Leader · Semiconductors · AI Hardware</div>
+      <h1>Peter<br /><em>Chun</em></h1>
+      <p class="hero-synopsis">
+        Innovative and impact-driven R&amp;D leader with over 20 years of global experience in semiconductors, AI hardware, and academic research. Renowned for developing high-performance digital systems and leading cross-functional teams from concept through production — bridging cutting-edge academic research with industry-scale deployment.
+      </p>
+      <div class="hero-contact">
+        <span>📍 Richmond Hill, Ontario, Canada</span>
+        <span>📞 (416) 839-5437</span>
+        <a href="mailto:peter.chun@ualberta.ca">peter.chun@ualberta.ca</a>
+      </div>
+    </div>
+    <div>
+      <div class="hero-stats">
+        <div class="stat-box">
+          <div class="stat-num">20<span>+</span></div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">18<span>+</span></div>
+          <div class="stat-label">Journal Papers</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Patents Held</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">60<span>+</span></div>
+          <div class="stat-label">Active R&amp;D Projects</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">Ph.D</div>
+          <div class="stat-label">ECE, Toronto Met</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">RISC<span>-V</span></div>
+          <div class="stat-label">TSC Member</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>Experience</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-date">
+          Mar 2026 — Present
+          <div class="timeline-company">Semtech</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--text-muted);margin-top:2px;">Burlington, Canada</div>
+        </div>
+        <div>
+          <div class="timeline-title">Sr. Director, Quality Engineering</div>
+          <div class="timeline-body">Responsible for high-speed Signal Integrity products (SERDES).</div>
+          <ul class="timeline-bullets">
+            <li>Managing supply chain, fab relationship, technology roadmap and direct customer specifications/requirements.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">
+          Oct 2025 — Present
+          <div class="timeline-company">Simon Fraser University</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--text-muted);margin-top:2px;">Vancouver, Canada</div>
+        </div>
+        <div>
+          <div class="timeline-title">Adjunct Professor, Science/Engineering</div>
+          <div class="timeline-body">Leading AI collaboration projects across three research groups:</div>
+          <ul class="timeline-bullets">
+            <li><strong style="color:var(--text-bright)">RAPID</strong> — Hardware accelerator for RISC-V based heterogeneous multicore (Prof. Lesley Shannon)</li>
+            <li><strong style="color:var(--text-bright)">4D Video</strong> — Representation and Synthesis of Dynamic Scenes (Prof. Richard Zhang)</li>
+            <li><strong style="color:var(--text-bright)">Thinking ISPs</strong> — Replacing Image-Signal Processing with Neural Processing (Prof. Arrvindh Shriraman)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">
+          Jun 2021 — Aug 2025
+          <div class="timeline-company">University of Alberta</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--text-muted);margin-top:2px;">Edmonton, Canada</div>
+        </div>
+        <div>
+          <div class="timeline-title">Adjunct Professor, ECE Department</div>
+          <div class="timeline-body">AI4EDA projects using reinforcement learning techniques:</div>
+          <ul class="timeline-bullets">
+            <li>Improved Logic Synthesis and P&amp;R Algorithm via Deep Reinforcement and Transfer Learning (Prof. Guzdial &amp; Di)</li>
+            <li>Exploiting Human and Programmatic Knowledge for RL in Electronic Design Automation (Prof. Matt Taylor)</li>
+            <li>Deep Learning Framework for Balanced k-parts Partitioning (Prof. Matt Taylor)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">
+          Oct 2014 — Feb 2026
+          <div class="timeline-company">Huawei</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--text-muted);margin-top:2px;">Toronto, Canada</div>
+        </div>
+        <div>
+          <div class="timeline-title">Director, Technical Planning &amp; Collaboration</div>
+          <div class="timeline-body">Multi-role leadership across architecture, program management, and open hardware strategy:</div>
+          <ul class="timeline-bullets">
+            <li>Contributed to <strong style="color:var(--text-bright)">Kunpeng 920</strong> — 2nd gen server processor based on ARM, featuring a superscalar architecture with ultralow-latency coherent cache subsystem.</li>
+            <li>Initiated and managed 10-year joint-lab programs (UBC, U of T, U of A, SFU) — 60 active projects.</li>
+            <li>Delivered GDS project across three continents.</li>
+            <li>RISC-V Technical Steering Committee member; MLCommons/MLPerf representative; IEEE IRDS SA technical committee; GSMA AI device specifications.</li>
+            <li>Led CloudEdge/SOC 5G/MEC infrastructure solution for next-gen HA flexible architecture.</li>
+            <li>Led Gauss MPP DB SoC/Network/System Hardware Acceleration architecture with distributed engineering teams.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">
+          Apr 2014 — Oct 2014
+          <div class="timeline-company">Rambus</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--text-muted);margin-top:2px;">Sunnyvale, USA</div>
+        </div>
+        <div>
+          <div class="timeline-title">Technical Lead</div>
+          <ul class="timeline-bullets">
+            <li>Managed systems, board designs, and team for Binary Pixel Imager (BPR) development.</li>
+            <li>Defined High-Dynamic Range and motion deblurring techniques; implemented in ASIC using GF CMOS 28LP library.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">
+          Aug 2012 — Mar 2014
+          <div class="timeline-company">Nevion</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--text-muted);margin-top:2px;">CA, USA</div>
+        </div>
+        <div>
+          <div class="timeline-title">Senior Product Leader</div>
+          <ul class="timeline-bullets">
+            <li>VS954: HD-SDI / 3G video &amp; Digital AES audio transport over IP with multi-channel Encoder/Decoder.</li>
+            <li>VS904: SD-SDI and HD-SDI to IP with FEC using SMPTE 2022 / RTP encapsulation.</li>
+            <li>Lockheed Martin: Analog Video to H.264 with SMPTE-12M timestamp and KLV telemetry for aviation navigation.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">
+          May 2009 — Jan 2012
+          <div class="timeline-company">MDA Corp.</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--text-muted);margin-top:2px;">Brampton, Canada</div>
+        </div>
+        <div>
+          <div class="timeline-title">Embedded &amp; Reconfigurable System Engineer</div>
+          <ul class="timeline-bullets">
+            <li>RADARSAT Constellation: 3D flash memory controller with pipelined RS(12,8) encoder/decoder for EDAC.</li>
+            <li>ISS Earth Video Camera: 26M pixel image sensor implementation.</li>
+            <li>Next Generation Canadarm: JPEG2000 IP integration and instrumentation interfaces.</li>
+            <li>Amazonia-1: Front End Electronics for 5-channel CCD array processing.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">
+          Sep 2004 — May 2008
+          <div class="timeline-company">Toronto Metropolitan Univ.</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--text-muted);margin-top:2px;">Toronto, Canada</div>
+        </div>
+        <div>
+          <div class="timeline-title">Faculty Member</div>
+          <ul class="timeline-bullets">
+            <li>ELE804 Advanced Electronics (course coordinator): ICs, op-amps, oscillators, voltage regulators.</li>
+            <li>EES512/812 Electric Circuits &amp; Fundamentals of Electrical Engineering.</li>
+            <li>EES612 Electric Machines and Electronics.</li>
+            <li>ELE/COE538 Microprocessor Systems: architecture, I/O, interrupts, memory systems.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">
+          May 2000 — Sep 2001
+          <div class="timeline-company">Nortel</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--text-muted);margin-top:2px;">Kanata, Canada</div>
+        </div>
+        <div>
+          <div class="timeline-title">Researcher, Advanced Design Technology</div>
+          <ul class="timeline-bullets">
+            <li>Investigated SONET FEC, EA modulators, EDFA amplifiers, optical MEM switches, and TEC lasers.</li>
+            <li>Characterized optical tests for 10G Ethernet using Optera Metro 8600, HP BERT, and LabVIEW.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research" style="background: var(--surface);">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>Research &amp; Design Projects</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-tag">2006 — 2008 · MDA / OCE / CITO</div>
+        <div class="card-title">FAST TRACK: High Frame Rate Stereo Vision</div>
+        <div class="card-body">Space-borne stereovision system for automated satellite grasping and docking. Developed 200 fps stereo video sensors with FPGA-based reconfigurable multi-stream platform.</div>
+      </div>
+      <div class="card">
+        <div class="card-tag">2005 — 2006 · UBS / OCE / CITO</div>
+        <div class="card-title">FPGA Stream Processing with Partial Reconfiguration</div>
+        <div class="card-body">Prototype platform for next-gen Multimedia, DVB, and DAB systems. Explored run-time reconfigurable FPGA using on-chip resources and dynamic task allocation.</div>
+      </div>
+      <div class="card">
+        <div class="card-tag">2002 — 2004 · NSERC</div>
+        <div class="card-title">AGORA Parallel Platform</div>
+        <div class="card-body">Adaptive Group Organized Reconfigurable Architecture. Developed partial reconfiguration for Xilinx Virtex-E FPGA; demonstrated feasibility through live visual acquisition.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERSHIPS -->
+<section id="memberships">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2>Committees &amp; Memberships</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="role-list">
+      <div class="role-item">COHESA NSERC — Board of Directors</div>
+      <div class="role-item">RISC-V International — Technical Steering Committee</div>
+      <div class="role-item">CMC Microsystems — Advisory Committee</div>
+      <div class="role-item">GSMA TSGAI — Member</div>
+      <div class="role-item">MLCommons / MLPerf — Representative</div>
+      <div class="role-item">IEEE IRDS SA — Technical Committee Member</div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications" style="background: var(--surface);">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2>Selected Publications</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="pub-list">
+      <div class="pub-item">
+        <div class="pub-year">2024</div>
+        <div class="pub-text">
+          Azadinia, <span class="pub-author-highlight">Chun</span> et al. — Differences in Electron and Hole Injection and Auger Recombination between Red, Green, and Blue CdSe-Based QLEDs. <span class="pub-journal">ACS Nano 18(2), 1485–1495.</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2023</div>
+        <div class="pub-text">
+          Chung, Cotella, <span class="pub-author-highlight">Chun</span> et al. — Suppressing Degradation in QLEDs via Doping ZnO ETL with Halides. <span class="pub-journal">Advanced Optical Materials 11, 2300686.</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2023</div>
+        <div class="pub-text">
+          Chen, Ghorbani, …<span class="pub-author-highlight">Chun</span> et al. — Influence of Encapsulation on Efficiency and Positive Aging in QLEDs. <span class="pub-journal">ACS Applied Materials &amp; Interfaces 28, 34240.</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2023</div>
+        <div class="pub-text">
+          Wan, Jia, …<span class="pub-author-highlight">Chun</span> et al. — Enhanced Blue Emission in Rb₂HfCl₆ Double Perovskite via Bi³⁺ Doping and Cs⁺ Alloying. <span class="pub-journal">Chemistry of Materials 35.</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2023</div>
+        <div class="pub-text">
+          Imran, …<span class="pub-author-highlight">Chun</span>, Hoogland et al. — Molecular Additive-Assisted Tellurium Homogenization in ZnSeTe Quantum Dots. <span class="pub-journal">Advanced Materials.</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2023</div>
+        <div class="pub-text">
+          Ghorbani, Chen, …<span class="pub-author-highlight">Chun</span> et al. — Changes in Hole and Electron Injection under Electrical Stress in Blue QLEDs. <span class="pub-journal">Small 2304580.</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2022</div>
+        <div class="pub-text">
+          Chung, Davidson-Hall, <span class="pub-author-highlight">Chun</span> et al. — Lifetime Enhancement in QLEDs via Fluorine-Incorporation in ZnO ETL. <span class="pub-journal">Nano-Micro Letters 14, 1.</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2021</div>
+        <div class="pub-text">
+          Xia, Cheng, Zhou, <span class="pub-author-highlight">Chun</span> et al. — <strong>Kunpeng 920: The first 7-nm Chiplet-Based 64-Core ARM SoC for Cloud Services.</strong> <span class="pub-journal">IEEE Micro.</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2021</div>
+        <div class="pub-text">
+          Kim, …<span class="pub-author-highlight">Chun</span> et al. — A multi-component framework for the analysis and design of explainable artificial intelligence. <span class="pub-journal">Machine Learning and Knowledge Extraction.</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2010</div>
+        <div class="pub-text">
+          <span class="pub-author-highlight">Chun</span>, Kirischian — Architecture Synthesis Methodology for Cost-Effective Run-Time Reconfigurable Systems. <span class="pub-journal">International Journal of Embedded Systems (IJES).</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2008</div>
+        <div class="pub-text">
+          Kirischian, Geurkov, <span class="pub-author-highlight">Chun</span>, Kirischian — Macro-Programmable Reconfigurable Stream Processor for Collaborative Manufacturing. <span class="pub-journal">Journal of Intelligent Manufacturing, Vol. 19 No. 6.</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2023</div>
+        <div class="pub-text">
+          Chen, Lu, Elgammal, <span class="pub-author-highlight">Chun</span>, Betz, Niu — VPR-Gym: A Platform for Exploring AI Techniques in FPGA Placement Optimization. <span class="pub-journal">FPL 2023.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PATENTS -->
+<section id="patents">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2>Patents</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="patent-grid">
+      <div class="patent-item">
+        <div class="patent-num">WO2024197382A1</div>
+        <div class="patent-title">Wide-Angle Impedance Matching Metasurface</div>
+        <div class="patent-year">2024</div>
+      </div>
+      <div class="patent-item">
+        <div class="patent-num">WO2023245274A1</div>
+        <div class="patent-title">Tightly-Coupled Antenna Array and Method</div>
+        <div class="patent-year">2023</div>
+      </div>
+      <div class="patent-item">
+        <div class="patent-num">WO2022100636A1</div>
+        <div class="patent-title">Bipolar Shell-Resurfaced Perovskite Quantum Dots</div>
+        <div class="patent-year">2022</div>
+      </div>
+      <div class="patent-item">
+        <div class="patent-num">US20230165129A1</div>
+        <div class="patent-title">Wide-Bandgap Perovskite Quantum Dots in Perovskite Matrix</div>
+        <div class="patent-year">2023</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" style="background: var(--surface);">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2>Education &amp; Awards</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+      <div style="border: 1px solid var(--border); padding: 1.8rem; background: var(--bg);">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.6rem;">1997 — 2008</div>
+        <div style="font-family:var(--serif);font-size:1.3rem;color:var(--text-bright);margin-bottom:0.4rem;font-weight:400;">Ph.D. / M.Sc. / B.Eng.</div>
+        <div style="font-size:14px;color:var(--text);">Electrical and Computer Engineering</div>
+        <div style="font-family:var(--mono);font-size:12px;color:var(--text-muted);margin-top:0.4rem;">Toronto Metropolitan University, Canada</div>
+      </div>
+      <div style="border: 1px solid var(--border); padding: 1.8rem; background: var(--bg);">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--accent2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.6rem;">Teaching Experience</div>
+        <div style="font-family:var(--serif);font-size:1.3rem;color:var(--text-bright);margin-bottom:0.4rem;font-weight:400;">4 Years Faculty</div>
+        <div style="font-size:14px;color:var(--text);">Advanced Electronics · Microprocessor Systems · Electric Machines · Electrical Engineering Fundamentals</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:2rem;">
+      <h2 style="font-size:1.2rem;">Scholarships &amp; Awards</h2>
+    </div>
+    <div class="awards-block">
+      Ryerson Entrance (1997) · Jack Roy Longstaffe Memorial (1998) · NSERC USRA (2002) · Graduate School Scholarship (2003–2007) · OGSA (2003) · NSERC (2005–2008) · OGS (2005) · OCE Professional Outreach Award (2008) · Three-time 1st Prize Winner at SVAR Conferences (2005, 2007, 2008)
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Peter Chun · <a href="mailto:peter.chun@ualberta.ca">peter.chun@ualberta.ca</a> · Richmond Hill, Ontario, Canada</p>
+</footer>
+
+</body>
+</html>
